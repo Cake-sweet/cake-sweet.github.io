@@ -1,0 +1,21 @@
+/* App-specific styles — Neo-Brutalist system */
+
+/* Ensure sections stack properly */
+section {
+  position: relative;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(255, 51, 51, 0.3);
+  color: #fff;
+}
+
+/* Focus styles for accessibility — brutalist outline */
+input:focus,
+textarea:focus,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #ff3333;
+  outline-offset: 2px;
+}

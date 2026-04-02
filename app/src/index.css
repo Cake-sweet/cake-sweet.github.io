@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #ff3333;
+    --color-secondary: #ffff00;
+    --color-accent: #0066ff;
+    --color-bg: #0A0A0A;
+    --color-bg-human: #F5F0E8;
+    --shadow-brutal: 4px 4px 0px #000000;
+    --shadow-brutal-red: 4px 4px 0px #ff3333;
+    --shadow-brutal-sm: 2px 2px 0px #000000;
+
+    --card: #ffffff;
+    --ring: #ff3333;
+    --input: #000000;
+    --muted: #f0f0f0;
+    --accent: #0066ff;
+    --border: #000000;
+    --radius: 0px;
+    --popover: #ffffff;
+    --primary: #ff3333;
+    --secondary: #ffff00;
+    --background: #ffffff;
+    --foreground: #000000;
+    --destructive: #000000;
+    --card-foreground: #000000;
+    --muted-foreground: #333333;
+    --accent-foreground: #ffffff;
+    --popover-foreground: #000000;
+    --primary-foreground: #ffffff;
+    --secondary-foreground: #000000;
+    --destructive-foreground: #ffffff;
+  }
+
+  .dark {
+    --card: #111111;
+    --ring: #ff3333;
+    --input: #ffffff;
+    --muted: #222222;
+    --accent: #0066ff;
+    --border: #ffffff;
+    --popover: #111111;
+    --primary: #ff3333;
+    --secondary: #ffff00;
+    --background: #0A0A0A;
+    --foreground: #ffffff;
+    --destructive: #ffffff;
+    --card-foreground: #ffffff;
+    --muted-foreground: #888888;
+    --accent-foreground: #000000;
+    --popover-foreground: #ffffff;
+    --primary-foreground: #000000;
+    --secondary-foreground: #000000;
+    --destructive-foreground: #000000;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    border-radius: 0;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Default: terminal mode */
+  body {
+    background: #0A0A0A;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Terminal mode globals */
+  body.mode-terminal {
+    background: #0A0A0A;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+  }
+
+  body.mode-terminal h1,
+  body.mode-terminal h2,
+  body.mode-terminal h3,
+  body.mode-terminal h4,
+  body.mode-terminal h5,
+  body.mode-terminal h6 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 800;
+  }
+
+  /* Human mode globals */
+  body.mode-human {
+    background: #F5F0E8;
+    color: #000000;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  body.mode-human h1,
+  body.mode-human h2,
+  body.mode-human h3,
+  body.mode-human h4,
+  body.mode-human h5,
+  body.mode-human h6 {
+    font-family: 'DM Serif Display', serif;
+  }
+}
+
+@layer components {
+
+  /* Brutalist button — the signature interaction */
+  .btn-brutal {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border: 2px solid #000;
+    background: #000;
+    color: #fff;
+    box-shadow: var(--shadow-brutal-red);
+    transition: transform 0.1s, box-shadow 0.1s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-brutal:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--shadow-brutal-sm);
+  }
+
+  .btn-brutal:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+
+  /* Human mode button variant */
+  .mode-human .btn-brutal {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  /* Terminal grid background */
+  .terminal-grid {
+    background-image:
+      linear-gradient(rgba(255, 51, 51, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 51, 51, 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Tech pill — brutalist version */
+  .tech-pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 2px solid #000;
+    background: #fff;
+    color: #000;
+    box-shadow: 3px 3px 0px #000;
+    white-space: nowrap;
+  }
+
+  .mode-terminal .tech-pill {
+    border-color: #ff3333;
+    background: #111;
+    color: #ff3333;
+    box-shadow: 3px 3px 0px #ff3333;
+  }
+
+  /* Terminal form field */
+  .terminal-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid #ff3333;
+    padding: 8px 0;
+    margin-bottom: 16px;
+  }
+
+  .terminal-field .prompt {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #ff3333;
+    white-space: nowrap;
+  }
+
+  .terminal-field input,
+  .terminal-field textarea {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #fff;
+    flex: 1;
+  }
+
+  .mode-human .terminal-field input,
+  .mode-human .terminal-field textarea {
+    color: #000;
+  }
+
+  .mode-human .terminal-field {
+    border-bottom-color: #000;
+  }
+
+  .mode-human .terminal-field .prompt {
+    color: #000;
+  }
+
+  /* Marquee animations */
+  .marquee-left {
+    animation: marqueeLeft 28s linear infinite;
+  }
+
+  .marquee-right {
+    animation: marqueeRight 28s linear infinite;
+  }
+
+  /* Card brutalist base */
+  .card-brutal {
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px #000;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+
+  .card-brutal:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000;
+  }
+
+  .mode-terminal .card-brutal {
+    background: #111;
+    border-color: #ff3333;
+    box-shadow: 4px 4px 0px #ff3333;
+  }
+
+  .mode-terminal .card-brutal:hover {
+    box-shadow: 2px 2px 0px #ff3333;
+  }
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Custom scrollbar — brutalist */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff3333;
+  border: 1px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffff00;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .marquee-left,
+  .marquee-right {
+    animation: none;
+  }
+}
