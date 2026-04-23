@@ -46,19 +46,44 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
 
-    // Typewriter effect
-    const lines = [
-      '> Message received. Will respond within 24hrs.',
-      '> Connection closed gracefully.',
-      '> exit 0',
-    ]
-    for (let i = 0; i < lines.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 600))
-      setTypewriterLines(prev => [...prev, lines[i]])
+    try {
+      // Attempt to hit the backend
+      const response = await fetch('/api/mail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      if (!response.ok) throw new Error('Backend not active')
+
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+
+      // Typewriter effect
+      const lines = [
+        '> Message received. Will respond within 24hrs.',
+        '> Connection closed gracefully.',
+        '> exit 0',
+      ]
+      for (let i = 0; i < lines.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, 600))
+        setTypewriterLines(prev => [...prev, lines[i]])
+      }
+    } catch (error) {
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+
+      const errorLines = [
+        '> ERROR: BACKEND_INACTIVE',
+        '> The mail server is currently sleeping or unresponsive.',
+        '> Please reach out directly at cakeissweet180@gmail.com',
+        '> exit 1',
+      ]
+      for (let i = 0; i < errorLines.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, 600))
+        setTypewriterLines(prev => [...prev, errorLines[i]])
+      }
     }
   }
 
